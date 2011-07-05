@@ -1,0 +1,21 @@
+source "http://rubygems.org"
+gem "rake", "0.8.7"
+gem "mysql"
+gem "rails", "<%= node[:rails][:version] %>"
+gem "haml"
+gem "rails3-generators"
+
+group :development do
+  gem "rspec-rails"
+  gem "ruby-debug19"
+end
+
+group :test do
+  gem "rspec"
+  gem "rspec-rails"
+  gem "capybara"
+  gem "launchy"
+  gem "factory_girl"
+  gem "mocha"
+  gem "ruby-debug19"
+end

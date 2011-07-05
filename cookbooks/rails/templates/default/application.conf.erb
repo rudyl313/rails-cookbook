@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+    RackEnv development
+    DocumentRoot <%= @node[:vagrant][:directory] %>/public
+
+    <Directory <%= @node[:vagrant][:directory] %>/public>
+        Allow from all
+        Options -MultiViews
+    </Directory>
+</VirtualHost>
+
