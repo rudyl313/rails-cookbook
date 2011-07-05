@@ -37,3 +37,6 @@ Step 4 - Possibly reload:
 
 Sometimes apache won't restart properly on the first pass, so just reload
 $ vagrant reload
+
+Once apache is up and running you should should be able to visit
+http://192.168.34.10/ and you'll get the default rails index page.
