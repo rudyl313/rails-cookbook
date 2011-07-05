@@ -11,29 +11,29 @@ cp -r #{node[:rails][:app_name]}/* .
 rm -r #{node[:rails][:app_name]}
 CODE
 
-  cwd "/vagrant"
+  cwd node[:rails][:root]
   user "vagrant"
   not_if do
-    `ls /vagrant`.include?("config.ru") 
+    `ls #{node[:rails][:root]}`.include?("config.ru") 
   end
 end
 
-template "/vagrant/Gemfile" do
+template "#{node[:rails][:root]}/Gemfile" do
   source "Gemfile.erb"
   mode "0666"
   owner "vagrant"
   group "vagrant"
   not_if do
-    `ls /vagrant`.include?("Gemfile") 
+    `ls #{node[:rails][:root]}`.include?("Gemfile") 
   end
 end
 
-template "/vagrant/config/database.yml" do
+template "#{node[:rails][:root]}/config/database.yml" do
   source "database.yml.erb"
   mode "0666"
   owner "vagrant"
   group "vagrant"
   not_if do
-    `ls /vagrant/config`.include?("database.yml") 
+    `ls #{node[:rails][:root]}/config`.include?("database.yml") 
   end
 end
