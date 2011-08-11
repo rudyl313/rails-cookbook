@@ -23,7 +23,6 @@
 # limitations under the License.
 
 include_recipe "packages"
-include_recipe "ruby"
 include_recipe "apache2"
 
 if platform?("centos","redhat")
