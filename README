@@ -14,7 +14,7 @@ Step 0 - Make sure Virtualbox, vagrant and the base box are installed:
 
 Install Virtualbox (download from the Virtualbox website)
 $ sudo gem install vagrant
-$ vagrant box add base19 http://dl.dropbox.com/u/22357552/base19.box
+$ vagrant box add lucid19 http://dl.dropbox.com/u/8443957/lucid19.box
 
 Step 1 - Create project directory:
 
@@ -39,4 +39,6 @@ Sometimes apache won't restart properly on the first pass, so just reload
 $ vagrant reload
 
 Once apache is up and running you should should be able to visit
-http://192.168.34.10/ and you'll get the default rails index page.
+http://192.168.34.10/ and you'll get the default rails index page. To execute
+commands within the box use "vagrant ssh". More info on how to use vagrant is
+available at http://www.vagrantup.com/
