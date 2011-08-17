@@ -1,8 +1,8 @@
 INTRODUCTION
 
-The idea behind this rails cookbook (and repo in general) is to be able to be
-able to generate a new rails project without polluting your host machine with
-the rails gem.
+The purpose of this rails cookbook (actually, the cookbook collection in
+general) is to be able to generate a new rails project without polluting your
+host machine with the rails gem.
 
 The rails and application recipes make some assumptions about what technologies
 you'll be using for your rails stack (MySQL, haml, rspec, etc.). Feel free to
@@ -16,7 +16,7 @@ Install Virtualbox (download from the Virtualbox website)
 $ sudo gem install vagrant
 $ vagrant box add lucid19 http://dl.dropbox.com/u/8443957/lucid19.box
 
-Step 1 - Create project directory:
+Step 1 - Setup the project directory:
 
 $ mkdir /path/to/project_name
 $ cp Vagrantfile /path/to/project_name/.
