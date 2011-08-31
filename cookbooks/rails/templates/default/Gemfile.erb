@@ -5,6 +5,17 @@ gem "rails", "<%= node[:rails][:version] %>"
 gem "haml"
 gem "rails3-generators"
 
+<% if node[:rails][:version] >= "3.1.0" %>
+gem 'jquery-rails'
+gem 'therubyracer'
+
+group :assets do
+  gem 'sass-rails', "~> <%= node[:rails][:version] %>"
+#  gem 'coffee-rails', "~> <%= node[:rails][:version] %>"
+  gem 'uglifier'
+end
+<% end %>
+
 group :development do
   gem "rspec-rails"
   gem "ruby-debug19"
