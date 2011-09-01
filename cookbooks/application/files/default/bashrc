@@ -1,4 +1,0 @@
-export DISPLAY=:0
-alias s="bundle exec rspec"
-alias r="script/rails"
-cd /vagrant
