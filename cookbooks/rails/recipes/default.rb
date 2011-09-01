@@ -31,3 +31,10 @@ template "#{node[:rails][:root]}/Gemfile" do
     `ls #{node[:rails][:root]}`.include?("Gemfile") 
   end
 end
+
+gem_package "bundler"
+
+execute "install bundle" do
+  command "sudo bundle install"
+  cwd "/vagrant"
+end

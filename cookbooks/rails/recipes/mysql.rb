@@ -10,3 +10,18 @@ template "#{node[:rails][:root]}/config/database.yml" do
     `ls #{node[:rails][:root]}/config`.include?("database.yml") 
   end
 end
+
+bash "db-bootstrap" do
+  user "vagrant"
+  cwd "/vagrant"
+
+  code <<-CODE
+rake db:create:all
+rake db:migrate
+rake db:test:prepare
+CODE
+
+  not_if do 
+    `mysql -uroot -proot -e "show databases;"`.include?(node[:rails][:app_name])
+  end
+end
