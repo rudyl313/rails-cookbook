@@ -1,4 +1,4 @@
-require_recipe "mysql::server"
+require_recipe "postgresql::server"
 require_recipe "rails"
 
 template "#{node[:rails][:root]}/Gemfile" do
@@ -10,7 +10,7 @@ template "#{node[:rails][:root]}/Gemfile" do
     `ls #{node[:rails][:root]}`.include?("Gemfile")
   end
   variables({
-    :db_gem => "mysql"
+    :db_gem => "pg"
   })
 end
 
@@ -22,7 +22,7 @@ execute "install bundle" do
 end
 
 template "#{node[:rails][:root]}/config/database.yml" do
-  source "mysql_database.yml.erb"
+  source "postgresql_database.yml.erb"
   mode "0666"
   owner node[:rails][:user]
   group node[:rails][:group]
@@ -40,8 +40,4 @@ rake db:create:all
 rake db:migrate
 rake db:test:prepare
 CODE
-
-  not_if do
-    `mysql -uroot -proot -e "show databases;"`.include?(node[:rails][:app_name])
-  end
 end

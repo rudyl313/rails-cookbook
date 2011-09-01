@@ -21,20 +21,3 @@ CODE
     `ls #{node[:rails][:root]}`.include?("config.ru") 
   end
 end
-
-template "#{node[:rails][:root]}/Gemfile" do
-  source "Gemfile.erb"
-  mode "0666"
-  owner node[:rails][:user]
-  group node[:rails][:group]
-  not_if do
-    `ls #{node[:rails][:root]}`.include?("Gemfile")
-  end
-end
-
-gem_package "bundler"
-
-execute "install bundle" do
-  command "bundle install"
-  cwd node[:rails][:root]
-end
