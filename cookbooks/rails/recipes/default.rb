@@ -16,7 +16,7 @@ rm -r #{node[:rails][:app_name]}
 CODE
 
   cwd node[:rails][:root]
-  user "vagrant"
+  user node[:rails][:user]
   not_if do
     `ls #{node[:rails][:root]}`.include?("config.ru") 
   end
@@ -25,16 +25,16 @@ end
 template "#{node[:rails][:root]}/Gemfile" do
   source "Gemfile.erb"
   mode "0666"
-  owner "vagrant"
-  group "vagrant"
+  owner node[:rails][:user]
+  group node[:rails][:group]
   not_if do
-    `ls #{node[:rails][:root]}`.include?("Gemfile") 
+    `ls #{node[:rails][:root]}`.include?("Gemfile")
   end
 end
 
 gem_package "bundler"
 
 execute "install bundle" do
-  command "sudo bundle install"
-  cwd "/vagrant"
+  command "bundle install"
+  cwd node[:rails][:root]
 end
