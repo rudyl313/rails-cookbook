@@ -3,9 +3,8 @@
 #--------------------------------------------------------------------------------
 require_recipe "apt"
 require_recipe "build-essential"
-require_recipe "mysql::server"
 require_recipe "apache2"
-require_recipe "rails"
+require_recipe "rails::mysql"
 require_recipe "passenger_apache2::mod_rails"
 
 #--------------------------------------------------------------------------------

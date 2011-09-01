@@ -1,0 +1,17 @@
+development: &defaults
+  adapter: mysql
+  encoding: utf8
+  database: <%= node[:rails][:app_name] %>_dev
+  username: root
+  password: root
+  socket: /var/run/mysqld/mysqld.sock
+  pool: 5
+  timeout: 5000
+
+test:
+  <<: *defaults
+  database: <%= node[:rails][:app_name] %>_test
+
+production:
+  <<: *defaults
+  database: <%= node[:rails][:app_name] %>

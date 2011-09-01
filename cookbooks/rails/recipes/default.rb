@@ -31,13 +31,3 @@ template "#{node[:rails][:root]}/Gemfile" do
     `ls #{node[:rails][:root]}`.include?("Gemfile") 
   end
 end
-
-template "#{node[:rails][:root]}/config/database.yml" do
-  source "database.yml.erb"
-  mode "0666"
-  owner "vagrant"
-  group "vagrant"
-  not_if do
-    `ls #{node[:rails][:root]}/config`.include?("database.yml") 
-  end
-end
