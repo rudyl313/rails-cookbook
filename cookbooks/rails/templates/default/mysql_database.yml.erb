@@ -2,8 +2,8 @@ development: &defaults
   adapter: mysql
   encoding: utf8
   database: <%= node[:rails][:app_name] %>_dev
-  username: root
-  password: root
+  username: <%= node[:rails][:db_user] %>
+  password: <%= node[:rails][:db_pass] %>
   socket: /var/run/mysqld/mysqld.sock
   pool: 5
   timeout: 5000

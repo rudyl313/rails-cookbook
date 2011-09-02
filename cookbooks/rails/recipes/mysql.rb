@@ -1,3 +1,5 @@
+node[:mysql][:server_root_password] = "root"
+
 require_recipe "mysql::server"
 require_recipe "rails"
 
@@ -21,6 +23,13 @@ execute "install bundle" do
   cwd node[:rails][:root]
 end
 
+bash "setup database user" do
+  code <<-CODE
+mysql -u root -proot -e "CREATE USER '#{node[:rails][:db_user]}'@'localhost' IDENTIFIED BY '#{node[:rails][:db_pass]}';"
+mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO '#{node[:rails][:db_user]}'@'localhost' WITH GRANT OPTION;"
+CODE
+end
+
 template "#{node[:rails][:root]}/config/database.yml" do
   source "mysql_database.yml.erb"
   mode "0666"
@@ -31,7 +40,7 @@ template "#{node[:rails][:root]}/config/database.yml" do
   end
 end
 
-bash "db-bootstrap" do
+bash "db bootstrap" do
   user node[:rails][:user]
   cwd node[:rails][:root]
 
@@ -42,6 +51,6 @@ rake db:test:prepare
 CODE
 
   not_if do
-    `mysql -uroot -proot -e "show databases;"`.include?(node[:rails][:app_name])
+    `mysql -u #{node[:rails][:db_user]} -p#{node[:rails][:db_pass]} -e "show databases;"`.include?(node[:rails][:app_name])
   end
 end

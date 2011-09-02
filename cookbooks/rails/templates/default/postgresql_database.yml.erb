@@ -1,8 +1,8 @@
 development: &defaults
   adapter: postgresql
   database: <%= node[:rails][:app_name] %>_dev
-  username: root
-  password: root
+  username: <%= node[:rails][:db_user] %>
+  password: <%= node[:rails][:db_pass] %>
   host: 127.0.0.1
 
 test:

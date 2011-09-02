@@ -13,7 +13,6 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo, :run_list => ["recipe[application]"] do |chef|
     chef.json.merge!({
-      :mysql => { :server_root_password => "root" },
       :rails => { :app_name => "app_name" }
     })
   end
