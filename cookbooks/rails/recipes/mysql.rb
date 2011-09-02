@@ -28,6 +28,7 @@ bash "setup database user" do
 mysql -u root -proot -e "CREATE USER '#{node[:rails][:db_user]}'@'localhost' IDENTIFIED BY '#{node[:rails][:db_pass]}';"
 mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO '#{node[:rails][:db_user]}'@'localhost' WITH GRANT OPTION;"
 CODE
+  not_if do `mysql -u root -proot -e "SELECT * FROM mysql.user;"`.include?(node[:rails][:db_user]) end
 end
 
 template "#{node[:rails][:root]}/config/database.yml" do
