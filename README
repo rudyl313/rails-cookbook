@@ -1,12 +1,13 @@
 INTRODUCTION
 
-The purpose of this rails cookbook (actually, the cookbook collection in
-general) is to be able to generate a new rails project without polluting your
-host machine with the rails gem.
+The purpose of the rails cookbook is to be able to generate a new rails project
+without polluting your host machine with the rails gem and without any hassle.
+Note that the cookbook only supports rails 3 and above.
 
-The rails and application recipes make some assumptions about what technologies
-you'll be using for your rails stack (MySQL, haml, rspec, etc.). Feel free to
-edit the recipes if you'd prefer to use others.
+The rails recipe does make some assumptions about what technologies you'll be
+using for your rails stack (haml, rspec, etc.). Feel free to edit the recipes if
+you'd prefer to use others. You will be able to choose between databases (see
+the customization section) by changing which recipes are used by default.
 
 USAGE
 
@@ -42,3 +43,26 @@ Once apache is up and running you should should be able to visit
 http://192.168.34.10/ and you'll get the default rails index page. To execute
 commands within the box use "vagrant ssh". More info on how to use vagrant is
 available at http://www.vagrantup.com/
+
+CUSTOMIZATION
+
+The rails cookbook has two recipes for databases: one for mysql and one for
+postgresql. You select which database you want to use by switching which recipe
+is included in the application recipe (cookbooks/application/recipes/default.rb).
+
+For mysql include the following:
+require_recipe "rails::mysql"
+
+For postgresql include the following:
+require_recipe "rails::postgresql"
+
+Make sure not to include both and that the database recipe is specified before
+the apache_passenger recipe:
+require_recipe "rails::apache_passenger"
+
+The Vagrantfile currently only specifies the app name, but other configurable
+options include "version" (the rails version, defaults to 3.1.0) "root" (rails
+root folder, defaults to /vagrant), "user" (the system user that will be using
+rails, defaults to vagrant), "group" (the user's group), "db_user" (the database
+username, defaults to app name), "db_pass" (the database password, defaults to
+app name).

@@ -44,7 +44,7 @@ end
 bash "create-db-user" do
   user "postgres"
   code <<-CODE
-psql -c "create user root with createdb login encrypted password 'root'"
+psql -c "create user #{node[:rails][:db_user]} with createdb login encrypted password '#{node[:rails][:db_pass]}'"
 CODE
   not_if do `sudo sudo -u postgres psql -c '\\l'`.include?(node[:rails][:app_name]) end
 end
