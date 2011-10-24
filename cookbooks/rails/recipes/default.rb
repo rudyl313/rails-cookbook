@@ -1,3 +1,8 @@
+require_recipe "apt"
+
+package "libxml2-dev"
+package "libxslt1-dev"
+
 gem_package "rails" do
   version node[:rails][:version]
 end
