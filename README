@@ -15,7 +15,7 @@ Step 0 - Make sure Virtualbox, vagrant and the base box are installed:
 
 Install Virtualbox (download from the Virtualbox website)
 $ sudo gem install vagrant
-$ vagrant box add lucid19 http://dl.dropbox.com/u/8443957/lucid19.box
+$ vagrant box add lucid64ruby19 http://dl.dropbox.com/u/8443957/lucid19.box
 
 Step 1 - Setup the project directory:
 
