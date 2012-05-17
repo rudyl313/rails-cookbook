@@ -1,68 +1,60 @@
 INTRODUCTION
 
 The purpose of the rails cookbook is to be able to generate a new rails project
-without polluting your host machine with the rails gem and without any hassle.
-Note that the cookbook only supports rails 3 and above.
+in a completely isolated development environment using vagrant. Just copy over
+the Vagrantfile and cookbooks, edit the config, run "vagrant up", and you'll
+have a full rails stack ready in around 10 mins. You can choose to use any ruby
+or rails version, but note that the cookbook only supports rails 3 and above.
 
 The rails recipe does make some assumptions about what technologies you'll be
 using for your rails stack (haml, rspec, etc.). Feel free to edit the recipes if
-you'd prefer to use others. You will be able to choose between databases (see
-the customization section) by changing which recipes are used by default.
+you'd prefer to use others. You will be able to choose between two databases
+technologies (mysql and postgresql). More choices may be implemented in future.
 
-USAGE
+INSTALL
 
-Step 0 - Make sure Virtualbox, vagrant and the base box are installed:
+Step 0 - Make sure Virtualbox and vagrant are installed:
 
-Install Virtualbox (download from the Virtualbox website)
-$ sudo gem install vagrant
-$ vagrant box add lucid64ruby19 http://dl.dropbox.com/u/8443957/lucid64ruby19.box
+Install Virtualbox https://www.virtualbox.org/wiki/Downloads
+Install vagrant http://vagrantup.com/
 
 Step 1 - Setup the project directory:
 
 $ mkdir /path/to/project_name
-$ cp Vagrantfile /path/to/project_name/.
-$ cp -r cookbooks /path/to/project_name/.
+$ cp Vagrantfile /path/to/project_name/
+$ cp -r cookbooks /path/to/project_name/
 
 Step 2 - Edit the Vagrantfile:
 
 $ cd /path/to/project_name
 Edit the Vagrantfile, replacing the app name on these two lines:
-   => vm.name = "App Name"
-   => :rails => { :app_name => "app_name" }
+   => vm.name = "My App"
+   => :rails => { :app_name => "my_app",
+
+Feel free to edit other options such as "db_type" ("mysql" or "postgresql"),
+ruby version, and rails version. You can also up the memory or change the VM
+IP address.
 
 Step 3 - Provision the box:
 
 $ vagrant up
 
-Step 4 - Possibly reload:
+The first time you use the cookbook it will probably take some extra time to
+download the base box.
 
-Sometimes apache won't restart properly on the first pass, so just reload
-$ vagrant reload
+USAGE
 
-Once apache is up and running you should should be able to visit
-http://192.168.34.10/ and you'll get the default rails index page. To execute
-commands within the box use "vagrant ssh". More info on how to use vagrant is
-available at http://www.vagrantup.com/
+You run code inside the virtual machine (which currently runs Ubuntu 12.04 LTS).
+Use "vagrant ssh" to ssh into the VM.
 
-CUSTOMIZATION
+You'll want to spin up a development web server inside the VM (you could also
+install another web server such as unicorn or puma by installing the gem inside
+the VM):
 
-The rails cookbook has two recipes for databases: one for mysql and one for
-postgresql. You select which database you want to use by switching which recipe
-is included in the application recipe (cookbooks/application/recipes/default.rb).
+$ vagrant ssh
+$ cd /vagrant/my_app
+$ bundle exec rails s
 
-For mysql include the following:
-require_recipe "rails::mysql"
+You can edit the code and manage your git repo outside of the VM.
 
-For postgresql include the following:
-require_recipe "rails::postgresql"
-
-Make sure not to include both and that the database recipe is specified before
-the apache_passenger recipe:
-require_recipe "rails::apache_passenger"
-
-The Vagrantfile currently only specifies the app name, but other configurable
-options include "version" (the rails version, defaults to 3.1.0) "root" (rails
-root folder, defaults to /vagrant), "user" (the system user that will be using
-rails, defaults to vagrant), "group" (the user's group), "db_user" (the database
-username, defaults to app name), "db_pass" (the database password, defaults to
-app name).
+Visit http://vagrantup.com/ for more instructions on how to use vagrant.
