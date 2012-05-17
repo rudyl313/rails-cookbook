@@ -16,7 +16,7 @@ technologies (mysql and postgresql). More choices may be implemented in future.
 ## Step 0 - Make sure Virtualbox and vagrant are installed:
 
 Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-Install [vagrant](http://vagrantup.com/)
+and [vagrant](http://vagrantup.com/)
 
 ## Step 1 - Setup the project directory:
 
